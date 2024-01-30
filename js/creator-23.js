@@ -891,7 +891,7 @@ function writeText(textObject, targetContext) {
 		rawText = params.get('copyright'); //so people using CC for custom card games without WotC's IP can customize their copyright info
 		if (rawText == 'none') { rawText = ''; }
 	}
-	if (rawText.toLowerCase().includes('{cardname}' || '~')) {
+	if (rawText.toLowerCase().includes('{cardname}' || '{~}')) {
 		rawText = rawText.replace(/{cardname}|~/ig, getCardName());
 	}
 	if (document.querySelector('#info-artist').value == '') {
@@ -1703,7 +1703,7 @@ async function bottomInfoEdited() {
 	card.infoArtist = document.querySelector('#info-artist').value;
 	card.infoYear = document.querySelector('#info-year').value;
 	for (var textObject of Object.entries(card.bottomInfo)) {
-		if (["NOT FOR SALE", "Wizards of the Coast", "CardConjurer.com", "cardconjurer.com"].some(v => textObject[1].text.includes(v))) {
+		if (["NOT FOR SALE", "CardConjurer.com", "cardconjurer.com"].some(v => textObject[1].text.includes(v))) {
 			continue;
 		} else {
 			await writeText(textObject[1], bottomInfoContext);
